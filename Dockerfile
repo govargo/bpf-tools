@@ -12,6 +12,8 @@ RUN git clone --recursive https://github.com/iovisor/bcc.git && cd bcc/libbpf-to
       slabratetop softirqs solisten statsnoop syncsnoop syscount tcptracer tcpconnect tcpconnlat \
       tcplife tcppktlat tcprtt tcpstates tcpsynbl tcptop vfsstat wakeuptime futexctn memleak opensnoop
 
+RUN git clone https://github.com/brendangregg/bpf-perf-tools-book.git
+
 
 FROM ubuntu:22.04 AS bpftrace-builder
 
@@ -92,6 +94,10 @@ COPY --from=bcc-builder /bcc/libbpf-tools/wakeuptime     /usr/sbin/wakeuptime
 COPY --from=bcc-builder /bcc/libbpf-tools/futexctn       /usr/sbin/futexctn
 COPY --from=bcc-builder /bcc/libbpf-tools/memleak        /usr/sbin/memleak
 COPY --from=bcc-builder /bcc/libbpf-tools/opensnoop      /usr/sbin/opensnoop
+
+# udplife uses /usr/local/bin/bpftrace, so create symbolic link
+COPY --from=bcc-builder /bpf-perf-tools-book/exercises/Ch10_Networking/udplife.bt /usr/sbin/udplife.bt
+RUN ln -s /usr/sbin/bpftrace /usr/local/bin/bpftrace
 
 COPY --from=bpftrace-builder /bin/* /usr/sbin/
 
