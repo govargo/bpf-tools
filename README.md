@@ -2,13 +2,20 @@
 
 Docker image for debug tools using [bcc](https://github.com/iovisor/bcc) and [bpftrace](https://github.com/bpftrace/bpftrace)
 
+## How to build
+
+Note: This docker image was tested only to GKE nodes(Ubuntu only) and containers
+
+```
+# Change KERNEL_VERSION, if needed
+docker build -t <repository>/bpf-tools:<tag> --build-arg KERNEL_VERSION=5.15.0-1054-gke .
+```
+
 ## How to use
 
 ```bash
-## Note: --profile=sysadmin can be used from K8s v1.30
+## Note: --profile=sysadmin can be used from kubectl v1.30
 $ kubectl debug -it <pod name> --image govargo/bpf-tools --profile sysadmin --target <target container> -- bash
-## enable trace point
-mount -t debugfs none /sys/kernel/debug
 
 ## for example...
 execsnoop
