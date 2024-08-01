@@ -29,10 +29,12 @@ ARG KERNEL_VERSION=5.15.0-1054-gke
 # Install debug tools
 RUN apt-get update && apt-get install -y linux-headers-${KERNEL_VERSION} linux-libc-dev libc6-dev \
       procps util-linux numactl strace dstat sysstat nicstat cpuid linux-tools-common \
-      iproute2 net-tools iputils-ping ncat conntrack tcpdump dnsutils ethtool \
-      sudo vim bsdmainutils gdb bash-completion && \
+      iproute2 net-tools iputils-ping ncat conntrack tcpdump dnsutils ethtool iptables \
+      sudo vim bsdmainutils gdb bash-completion curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+RUN curl -sSL "https://github.com/fullstorydev/grpcurl/releases/download/v1.9.1/grpcurl_1.9.1_linux_x86_64.tar.gz" | tar -xz -C /usr/local/bin
 
 # Create symbolic link for bpftrace
 RUN ln -sf /usr/src/linux /lib/modules/${KERNEL_VERSION}/source && ln -sf /usr/src/linux /lib/modules/${KERNEL_VERSION}/build
@@ -103,5 +105,6 @@ COPY --from=bpftrace-builder /bin/* /usr/sbin/
 
 # Write to /etc/fstab for /sys/kernel/debug, however, maybe required "mount -t debugfs none /sys/kernel/debug"
 RUN echo "debugfs /sys/kernel/debug debugfs defaults 0 0" >> /etc/fstab
+RUN echo "mount -t debugfs none /sys/kernel/debug" >> ~/.bashrc
 
 CMD ["echo", "hello"]
