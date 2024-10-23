@@ -24,7 +24,7 @@ RUN curl -LO https://github.com/bpftrace/bpftrace/releases/download/v0.20.4/bina
 
 FROM ubuntu:22.04 AS executor
 
-ARG KERNEL_VERSION=5.15.0-1063-gke
+ARG KERNEL_VERSION=5.15.0-1064-gke
 
 # Install debug tools
 RUN apt-get update && apt-get install -y linux-headers-${KERNEL_VERSION} linux-libc-dev libc6-dev \
