@@ -17,8 +17,11 @@ docker build -t <repository>/bpf-tools:<tag> --build-arg KERNEL_VERSION=5.15.0-1
 ## Note: --profile=sysadmin can be used from kubectl v1.30
 $ kubectl debug -it <pod name> --image govargo/bpf-tools --profile sysadmin --target <target container> -- bash
 
-## for example...
+## example from bcc
 execsnoop
+
+## example from bpftrace
+tcplife.bt
 ```
 
 ## Reference
