@@ -37,9 +37,6 @@ RUN apt-get update && apt-get install -y linux-headers-${KERNEL_VERSION} linux-l
 # Install grpcurl
 RUN curl -sSL "https://github.com/fullstorydev/grpcurl/releases/download/v1.9.1/grpcurl_1.9.1_linux_x86_64.tar.gz" | tar -xz -C /usr/local/bin
 
-# Create symbolic link for bpftrace
-RUN ln -sf /usr/src/linux /lib/modules/${KERNEL_VERSION}/source && ln -sf /usr/src/linux /lib/modules/${KERNEL_VERSION}/build
-
 # Copy libbpf bcc tools
 COPY --from=bcc-builder /bcc/libbpf-tools/bashreadline   /usr/sbin/bashreadline
 COPY --from=bcc-builder /bcc/libbpf-tools/bindsnoop      /usr/sbin/bindsnoop
