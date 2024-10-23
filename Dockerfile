@@ -34,6 +34,7 @@ RUN apt-get update && apt-get install -y linux-headers-${KERNEL_VERSION} linux-l
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Install grpcurl
 RUN curl -sSL "https://github.com/fullstorydev/grpcurl/releases/download/v1.9.1/grpcurl_1.9.1_linux_x86_64.tar.gz" | tar -xz -C /usr/local/bin
 
 # Create symbolic link for bpftrace
