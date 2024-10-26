@@ -18,7 +18,7 @@ RUN git clone https://github.com/brendangregg/bpf-perf-tools-book.git
 FROM ubuntu:22.04 AS bpftrace-builder
 
 RUN apt-get update && apt-get install -y curl xz-utils
-RUN curl -LO https://github.com/bpftrace/bpftrace/releases/download/v0.20.4/binary_tools_man-bundle.tar.xz && \
+RUN curl -LO https://github.com/bpftrace/bpftrace/releases/download/v0.21.2/binary_tools_man-bundle.tar.xz && \
     xz -dv binary_tools_man-bundle.tar.xz && tar xfv binary_tools_man-bundle.tar
 
 
