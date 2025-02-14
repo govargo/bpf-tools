@@ -32,7 +32,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y linux-headers-${KERNEL_VERSION} linux-libc-dev libc6-dev \
       procps util-linux numactl strace dstat sysstat nicstat cpuid linux-tools-common \
       iproute2 net-tools iputils-ping ncat conntrack tcpdump dnsutils ethtool iptables lsof \
-      sudo vim bsdmainutils gdb bash-completion curl tzdata && \
+      sudo vim bsdmainutils gdb bash-completion curl tzdata jq && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
